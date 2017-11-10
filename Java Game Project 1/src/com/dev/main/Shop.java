@@ -8,33 +8,47 @@ import java.awt.event.MouseEvent;
 
 import com.dev.main.Game.STATE;
 
-
+/*
+ *  Upgrade Shop / Pause Menu
+ *  User will be able to spend earned points in shop
+ *  to buy upgrades for player 
+ */
 public class Shop extends MouseAdapter{
 	
-	Handler handler;
-	HUD hud;
-	Game game;
+	// Default Upgrade Costs.
+	private int B1, B2, B3 = 200;
 	
-
-	private int B1=200;
-	private int B2=200;
-	private int B3=200;
-	
-	public enum ITEM{
+	// List of Items in the Shop
+	public enum ITEM
+	{
 		Null,
 		UpgradeHealth,
 		RefillHealth,
 		UpgradeSpeed
 	};
+	
+	// Current Item Choice
 	public ITEM choice = ITEM.Null;
 
-	public Shop(Handler handler, HUD hud, Game game){ //Access handler to change things we select
+	// Declare necessary Objects.
+	Handler handler;
+	HUD hud;
+	Game game;
+
+
+
+	// Initialize Objects for Access
+	public Shop(Handler handler, HUD hud, Game game)
+	{ 
 		this.handler=handler;
 		this.hud=hud;
 		this.game=game;
 	}
 	
-	public void render(Graphics g){//Draw out how shop looks
+	// Draw out how shop looks
+	public void render(Graphics g)
+	{
+		// Title Font
 		g.setColor(Color.white);
 		g.setFont(new Font("arial",1,48));
 		g.drawString("SHOP", (Game.WIDTH/2)-70, 50);
@@ -65,14 +79,16 @@ public class Shop extends MouseAdapter{
 		g.drawString("Press Space to Resume Game", (Game.WIDTH/2)-100, 330);
 		
 	}
-	
-	public void mousePressed(MouseEvent e){
+	// Using Mouse to Navigate Shop
+	public void mousePressed(MouseEvent e)
+	{
 		int mX=e.getX();
 		int mY=e.getY();
 		
 		
 		//Box 1 - Upgrade Health
-		if (mouseOver(mX,mY,100,100,100,80)&& game.gameState==STATE.Shop){
+		if (mouseOver(mX,mY,100,100,100,80)&& game.gameState==STATE.Shop)
+		{
 			AudioPlayer.getSound("Click Sound").play();
 			if (hud.getScore()>=B1){
 				hud.setScore(hud.getScore()-B1);
@@ -82,7 +98,8 @@ public class Shop extends MouseAdapter{
 			}
 		}
 		//Box 2 - Refill Health
-		if (mouseOver(mX,mY,250,100,100,80)&& game.gameState==STATE.Shop){
+		if (mouseOver(mX,mY,250,100,100,80)&& game.gameState==STATE.Shop)
+		{
 			AudioPlayer.getSound("Click Sound").play();
 			if (hud.getScore()>=B2){
 				hud.setScore(hud.getScore()-B2);
@@ -91,7 +108,8 @@ public class Shop extends MouseAdapter{
 			}
 		}
 		//Box 3 - Upgrade Speed
-		if (mouseOver(mX,mY,400,100,100,80)&& game.gameState==STATE.Shop){
+		if (mouseOver(mX,mY,400,100,100,80)&& game.gameState==STATE.Shop)
+		{
 			AudioPlayer.getSound("Click Sound").play();
 			if (hud.getScore()>=B3){
 				hud.setScore(hud.getScore()-B3);
@@ -99,21 +117,27 @@ public class Shop extends MouseAdapter{
 			}
 		}
 	}
-	//If Mouse is inside selected area.(Menu Button for example) return true. Else false.
-	private boolean mouseOver(int mX, int mY, int x, int y, int width, int height){
-		if (mX>x && mX < x+width){
-			if (mY>y && mY< y+height){
+   /*
+	* If Mouse is inside selected area.(Menu Button for example) return true. Else false.
+	* Use in Conjunction with mouseEvent e. mX, mY = e.getX, e.getY
+	*/
+	public boolean mouseOver(int mX, int mY, int x, int y, int width, int height)
+	{
+		
+		if (mX>x && mX < x+width)
+		{
+			if (mY>y && mY< y+height)
+			{
 				return true;
-			}else {return false; }
-		}else return false;
-	}
-	private void mouseEntered(MouseEvent e,int mX, int mY, int x, int y, int width, int height){
-		mX=e.getX();
-		mY=e.getY();
-		if (mouseOver(mX,mY,100,100,100,80)&& game.gameState==STATE.Shop){
-			choice=ITEM.UpgradeHealth;
+			}
+			else 
+			{
+				return false;
 			}
 		}
+		else return false;
+	}
+
 }
 
 

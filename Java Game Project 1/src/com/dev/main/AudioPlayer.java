@@ -7,13 +7,19 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
-public class AudioPlayer {
-
+public class AudioPlayer 
+{
+	
+	// Use HashMap to store a key(audio name) and its corresponding sound(value).
 	public static Map<String, Sound> soundMap = new HashMap<String, Sound>();
 	public static Map<String, Music> musicMap = new HashMap<String, Music>();
     
-	//Loads music and sound into the Maps
-	public static void load(){ //Static so we can call AudioPlayer straight from class one time. -> AudioPlayer.Load()
+	/*
+	 * Loads music and sound into the Maps
+	 * Static so we can call AudioPlayer straight from class one time. -> AudioPlayer.Load()
+	 */ 
+	public static void load()
+	{ 
 		try {
 			soundMap.put("Click Sound", new Sound("res/click_sound.wav"));
 			

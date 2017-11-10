@@ -16,18 +16,20 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	private Thread thread; //Entire Game will be Run in thread. Single thread. (Not Recommended)
 	private Boolean running =false; // Game is not Started..Yet
 	
+	// Game Settings
 	public static boolean paused = false;
-	public int diff=0;
-	//0 - Normal, 1 - Extreme
+	public int diff=0; // 0 - Normal, 1 - Extreme
 	
-
+	// Declare all necessary objects for game to run.
 	private Handler handler;
-	private Random r;
 	private HUD hud;
 	private Spawn spawner;
 	private Menu menu;
 	private Shop shop;
 	
+	private Random r;
+	
+	// List of Game States and Windows
 	public enum STATE{
 		Menu,
 		Select,
@@ -37,49 +39,74 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		Quit,
 		GameOver,
 	};
+	
+	// Start at Menu
 	public STATE gameState = STATE.Menu;
 	
-	public static BufferedImage sprite_sheet; //Call from this one same sprite sheet. Hence static.
+	// Call from this one same sprite sheet. Hence static.
+	public static BufferedImage sprite_sheet; 
 	
-	public Game(){
-		BufferedImageLoader loader = new BufferedImageLoader();//Creates instance of loader object in Game class.
-		sprite_sheet= loader.loadImage("/Sprite_Sheet.png"); //Load Sprite sheet into game
+	public Game()
+	{
+		// Load Sprite Sheet
+		BufferedImageLoader loader = new BufferedImageLoader(); // Creates instance of loader object in Game class.
+		sprite_sheet= loader.loadImage("/Sprite_Sheet.png"); // Load Sprite sheet into game
 		System.out.println("Loaded Sprite Sheet");
 		
+		// Initialize needed game properties.
 		handler = new Handler();
 		hud = new HUD();
 		shop = new Shop(handler,hud,this);
 		menu = new Menu(this,handler,hud);
+		
+		// Add KeyInput and Mouse Listners to Game.
 		this.addKeyListener(new KeyInput(handler,this));
 		this.addMouseListener(menu);
 		this.addMouseListener(shop);
 		
+		// Load Music using AudioPlayer
 		AudioPlayer.load();
-		
 		AudioPlayer.getMusic("Music").loop();
 		
+		// Create Window and Display Menu Particles
 		new Window(WIDTH, HEIGHT, "Zero Survival+",this);
+		createParticle();
 		
-		
-		
-	    
+
+	}
+	//Stops objects from exceeding boundaries. "Clamps" them down.
+	public static float clamp(float var,float min, float max)
+	{ 
+		if(var > max) return max; //If X exceeds max. X stops at max
+		else if(var < min) return min;//If Y exceeds max. X stops at max
+		return var; //Return value of coordinate.
+	}
+	
+	// Create Menu Particle Effect on Screen
+	public void createParticle()
+	{
+		// Create Menu Particle
 		r = new Random();
-		
-		
 		spawner=new Spawn(handler,hud,this);
 		
-		if (gameState!= STATE.Game){
-			for (int i=0;i<20;i++){
+		if (gameState!= STATE.Game)
+		{
+			for (int i=0;i<20;i++)
+			{
 				handler.AddObject(new MenuParticle(r.nextInt(WIDTH),r.nextInt(HEIGHT),ID.MenuParticle,handler));
 			}
 		}
 	}
-	public synchronized void start(){
+	// Runs Game Thread
+	public synchronized void start()
+	{
 		thread = new Thread(this);// Initializes thread as new. "this" refers to our game instance.
 		thread.start(); //Start method for thread objects.
 		running = true;
 	}
-	public synchronized void stop(){ // Try and Catch to test if program stopped.
+	
+	// Try and Catch to test if program stopped.
+	public synchronized void stop(){ 
 		try{ 
 			thread.join(); // Stops thread.
 			running = false;
@@ -90,7 +117,7 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	}
 	
 	/*
- Very Popular Game Loop. Refreshes and Updates Game.
+    Very Popular Game Loop. Refreshes and Updates Game.
 	We need a loop that performs 2 things: it checks whether enough time has passed (1/60 sec) 
 	to refresh the game, and checks whether enough time has passed (1 sec) to refresh the FPS counter;
 	while 'running' it adds the time it took to go through one iteration of the loop it self and 
@@ -124,10 +151,12 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
         }
         stop();
     }
-	
-	private void tick(){
-	
-		
+	/* 
+	 * Checks which state game is currently in and displays 
+	 * appropriate output
+	 */
+	private void tick()
+	{
 		if (gameState == STATE.Game)
 		{
 			if (!paused){
@@ -146,16 +175,20 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 			
 		}
 		else if (gameState == STATE.Shop)hud.update();
-		else if (gameState == STATE.Menu|| gameState == STATE.Help||gameState == STATE.GameOver|| gameState == STATE.Select){
+		else if (gameState == STATE.Menu|| gameState == STATE.Help||gameState == STATE.GameOver|| gameState == STATE.Select)
+		{
 			handler.tick();
 			menu.tick(); //Start the menu
 		}
-		}
+	}
 	
-	private void render(){ //Render Function.
+	//Render Objects to the Game.
+	private void render()
+	{ 
 		BufferStrategy bs = this.getBufferStrategy(); // Starts at null
-		if(bs == null){
-			this.createBufferStrategy(3);//3 is an optimal performance 
+		if(bs == null)
+		{
+			this.createBufferStrategy(3); // 3 is an optimal performance 
 			return;
 		}
 		
@@ -164,33 +197,35 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		g.setColor(Color.black);
 		g.fillRect(0,0,WIDTH,HEIGHT);
 				
-		
 		if (paused)
 		{
 			g.setColor(Color.white);
 			g.drawString("Paused", 120, 84);
 		}
-		if (gameState == STATE.Game){
-		hud.render(g); //HUD is not Game Object. Needs to render separately.
+		
+		if (gameState == STATE.Game)
+		{
+		hud.render(g); // HUD is not Game Object. Needs to render separately.
 		handler.render(g);
 		}
-		else if (gameState ==STATE.Shop){
-			shop.render(g);
+		
+		else if (gameState ==STATE.Shop)
+		{
+			shop.render(g); // Display Shop
 		}
-		else if (gameState == STATE.Menu || gameState ==STATE.Help ||gameState == STATE.GameOver|| gameState == STATE.Select){
-			menu.render(g);
-			handler.render(g);
-	}
+		
+		else if (gameState == STATE.Menu || gameState ==STATE.Help ||gameState == STATE.GameOver|| gameState == STATE.Select)
+		{
+			menu.render(g); // Display Menu
+			handler.render(g); // Render Handler to Display new Game Object Updates
+		}
 		g.dispose();
 		bs.show(); // Shows the buffer.
 		
 	}
-	public static float clamp(float var,float min, float max){ //Stops objects from exceeding boundaries. "Clamps" them down.
-		if(var > max) return max; //If X exceeds max. X stops at max
-		else if(var < min) return min;//If Y exceeds max. X stops at max
-		return var; //Return value of coordinate.
-	}
-	public static void main(String args[]){
+	
+	public static void main(String args[])
+	{
 		new Game();
 	}
 }

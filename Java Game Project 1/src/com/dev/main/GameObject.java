@@ -3,10 +3,11 @@ package com.dev.main;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-//Abstract class for every object in the game.
+//Abstract class for every game Object.
 public abstract class GameObject {
 	
-	protected float x,y; //Protected is inherited by class.
+	//Instance variables Protected is inherited by class.
+	protected float x,y;
 	protected ID id;
 	protected float velX, velY;
 	protected boolean falling;
@@ -15,23 +16,27 @@ public abstract class GameObject {
 	protected boolean movingRight;
 	protected boolean movingLeft;
 	
-	public GameObject(float x, float y, ID id){ //Sets Parameters to the protected variables.
+	// Initializes necessary variables.
+	public GameObject(float x, float y, ID id)
+	{ 
 		this.x=x;
 		this.y=y;
 		this.id=id;
 	}
 	
-	//So objects will refresh and be rendered on the screen.
+   /* Abstract methods must be implemented by child
+	* So objects will refresh and be rendered on the screen.
+	* Creates rectangle bounds. Not good with objects that arent rectangles.
+	*/
 	public abstract void tick();
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
 	
-	public abstract Rectangle getBounds();// Creates rectangle bounds. Not good with objects that arent rectangles.
-	
-	//Setters and Getters for Game Objects.	
-	public void setX(float x){ // Used to change location of objects positions in game.
+	// Set and Get Methods to Return Game Object Data
+	public void setX(float x){ 
 		this.x=x;
 	}
-	public void setY(float  y){ // Used to change location of objects positions in game.
+	public void setY(float  y){
 		this.y=y;
 	}
 	public float  getX(){ 
@@ -40,19 +45,19 @@ public abstract class GameObject {
 	public float  getY(){
 		return y;
 	}
-	public void setID(ID id){//Set ID of object. Enemy? Player? Power up? etc.
+	public void setID(ID id){ // Set ID of object. Enemy? Player? Power up? etc.
 		this.id=id;
 	}
 	public ID getID(){
 		return id;
 	}
-	public void setvelX(float velX){ //Sets velocity of object
+	public void setvelX(float velX){ // Sets velocity of object
 		this.velX=velX;
 	}
-	public void setvelY(float velY){ //Sets velocity of object
+	public void setvelY(float velY){ // Sets velocity of object
 		this.velY=velY;
 	}
-	public float  getvelX(){ 
+	public float getvelX(){ 
 		return velX;
 	}
 	public float getvelY(){
@@ -64,7 +69,6 @@ public abstract class GameObject {
 	public void setJumping(boolean jumping) {
 		this.jumping = jumping;
 	}
-
 	public boolean isJumping() {
 		return jumping;
 	}

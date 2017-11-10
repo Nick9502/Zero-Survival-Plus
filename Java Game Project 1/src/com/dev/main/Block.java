@@ -7,23 +7,25 @@ import java.awt.Rectangle;
 public class Block extends GameObject{
 
 	
-	public Block(float x, float y, ID id) {
+	public Block(float x, float y, ID id) 
+	{
 		super(x, y, id);
 	}
 
-	public void tick() {
-		// TODO Auto-generated method stub
-		
+	public void tick() 
+	{
+		// TODO implement color change effect when player near
 	}
 
-	public void render(Graphics g) {
+	public void render(Graphics g) 
+	{
 		if (id==ID.Block){g.setColor(Color.white);}
 		g.drawRect((int)x, (int)y, 32,32);
-		
 	}
-
-	public Rectangle getBounds() {
-		return new Rectangle((int)x,(int)y,32,32); // Bounds of rectangle is size of floor.
+	// 32 x 32 Rectangle
+	public Rectangle getBounds() 
+	{
+		return new Rectangle((int)x,(int)y,32,32); 
 	}
 
 }

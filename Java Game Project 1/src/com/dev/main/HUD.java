@@ -5,20 +5,24 @@ import java.awt.Graphics;
 
 public class HUD {
 
+	// HP Bar Variables
 	public int bounds = 0;
 	public static float HEALTH = 100;
 	private float greenVal=255f;
-	
+
+	// Game Detail Settings
 	private int score = 0;
 	private int level = 1;
 	
-	public void tick(){
+	public void tick()
+	{
 		HEALTH=Game.clamp(HEALTH, 0, 100+(bounds/2));//Clamps health. Between 0-100. (Bounds/2)-Line 25 (*2)
 		greenVal=(int) Game.clamp(greenVal, 0, 255);
 		greenVal=(int) (HEALTH*2);
 		score++;
 	}
-	public void render(Graphics g){
+	public void render(Graphics g)
+	{
 		g.setColor(Color.gray);//Background of health bar
 		g.fillRect(15, 15, 200+bounds, 32);
 		g.setColor(new Color(75,(int)greenVal,0));//Represents health amount.
@@ -30,6 +34,15 @@ public class HUD {
 		g.drawString("Score: " + score, 75, 64);
 		g.drawString("Space for Shop", 15, 84);
 	}
+	
+	// Updates HUD when needed
+	public void update()
+	{
+		greenVal=(int) Game.clamp(greenVal, 0, 255);
+		//greenVal=(int) (HEALTH*2);
+	}
+	
+	// Set and Get Methods
 	public int getScore() {
 		return score;
 	}
@@ -43,9 +56,5 @@ public class HUD {
 		this.level = level;
 	}
 	
-	public void update(){
-		greenVal=(int) Game.clamp(greenVal, 0, 255);
-		//greenVal=(int) (HEALTH*2);
 
-	}
 }
