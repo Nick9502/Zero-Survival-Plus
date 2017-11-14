@@ -1,7 +1,10 @@
 package com.dev.main;
 
+/*
+ * Every GameObject has an ID corresponding
+ * to the type of object it is.
+ */
 public enum ID {
-
 	Player(),
 	BasicEnemy(),
 	HardEnemy(),

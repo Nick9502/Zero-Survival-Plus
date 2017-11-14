@@ -30,6 +30,7 @@ public class BasicEnemy extends GameObject {
 		if(x<=0||x>=Game.WIDTH-16){velX*=-1;}
 		if(y<=0||y>=Game.HEIGHT-80){velY*=-1;}
 		
+		// Create Trail Effect
 		handler.AddObject(new Trail((int)x,(int)y,ID.Trail,Color.red,16,16,0.1f,handler));
 	}
 	public void render(Graphics g) {

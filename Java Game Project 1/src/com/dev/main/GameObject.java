@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 //Abstract class for every game Object.
 public abstract class GameObject {
 	
-	//Instance variables Protected is inherited by class.
+	//Instance variables Protected is inherited by subclass.
 	protected float x,y;
 	protected ID id;
 	protected float velX, velY;
@@ -17,6 +17,12 @@ public abstract class GameObject {
 	protected boolean movingLeft;
 	
 	// Initializes necessary variables.
+	/*
+	 * Every GameObject has an 
+	 * @param x - x coordinate on screen
+	 * @param y - y coordinate on screen
+	 * @param id - An ID to represent itself.
+	 */
 	public GameObject(float x, float y, ID id)
 	{ 
 		this.x=x;

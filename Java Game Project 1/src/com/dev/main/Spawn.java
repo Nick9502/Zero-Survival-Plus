@@ -2,22 +2,35 @@ package com.dev.main;
 
 import java.util.Random;
 
+/*
+ * Spawn class handles creation of enemies
+ */
 public class Spawn {
 
+	// Declare Needed Objects
 	private Handler handler;
 	private HUD hud;
 	Game game;
-
+	
+	// Random Enemy Location
 	private Random r = new Random();
+	
+	// Score determines when next wave starts
 	private int scoreKeep = 0;
 
-	public Spawn(Handler handler, HUD hud, Game game) { // Exists within handler and hud.
+	// Intialize needed object variables
+	public Spawn(Handler handler, HUD hud, Game game) {
 														
 		this.handler = handler;
 		this.hud = hud;
 		this.game = game;
 	}
 
+	/*
+	 * Tick method updates enemy waves and increases level
+	 * the higher the players score becomes.
+	 * 2 Difficulties. Normal and Extreme Difficulties
+	 */
 	public void tick() {
 		// ----------------------------------Normal Difficulty-------------------------------------------- 
 		if (game.diff == 0) {

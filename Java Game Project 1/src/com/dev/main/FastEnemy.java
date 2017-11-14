@@ -15,7 +15,6 @@ public class FastEnemy extends GameObject {
 		this.handler=handler;
 		velX=3;
 		velY=9;
-		
 		SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
 		FastEnemy_image=ss.grabImage(1, 4, 16, 16); //Row 1,Col 4, Height 16, Width 16
 	}

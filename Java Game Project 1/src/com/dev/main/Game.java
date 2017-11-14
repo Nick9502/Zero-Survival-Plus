@@ -26,7 +26,6 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	private Spawn spawner;
 	private Menu menu;
 	private Shop shop;
-	
 	private Random r;
 	
 	// List of Game States and Windows
@@ -46,6 +45,11 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	// Call from this one same sprite sheet. Hence static.
 	public static BufferedImage sprite_sheet; 
 	
+	/*
+	 * IMPORTANT
+	 * Game constructor initializes all necessary game objects
+	 * imports setups and effects
+	 */
 	public Game()
 	{
 		// Load Sprite Sheet
@@ -53,13 +57,14 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		sprite_sheet= loader.loadImage("/Sprite_Sheet.png"); // Load Sprite sheet into game
 		System.out.println("Loaded Sprite Sheet");
 		
-		// Initialize needed game properties.
+		// Initialize all needed game objects.
 		handler = new Handler();
 		hud = new HUD();
 		shop = new Shop(handler,hud,this);
 		menu = new Menu(this,handler,hud);
+		spawner=new Spawn(handler,hud,this);
 		
-		// Add KeyInput and Mouse Listners to Game.
+		// Add KeyInput and Mouse Listeners to Game.
 		this.addKeyListener(new KeyInput(handler,this));
 		this.addMouseListener(menu);
 		this.addMouseListener(shop);
@@ -71,7 +76,6 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		// Create Window and Display Menu Particles
 		new Window(WIDTH, HEIGHT, "Zero Survival+",this);
 		createParticle();
-		
 
 	}
 	//Stops objects from exceeding boundaries. "Clamps" them down.
@@ -87,7 +91,6 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	{
 		// Create Menu Particle
 		r = new Random();
-		spawner=new Spawn(handler,hud,this);
 		
 		if (gameState!= STATE.Game)
 		{
@@ -118,6 +121,7 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	
 	/*
     Very Popular Game Loop. Refreshes and Updates Game.
+    Part of Runnable Interface
 	We need a loop that performs 2 things: it checks whether enough time has passed (1/60 sec) 
 	to refresh the game, and checks whether enough time has passed (1 sec) to refresh the FPS counter;
 	while 'running' it adds the time it took to go through one iteration of the loop it self and 
@@ -185,6 +189,7 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	//Render Objects to the Game.
 	private void render()
 	{ 
+		// Efficient buffering strategy
 		BufferStrategy bs = this.getBufferStrategy(); // Starts at null
 		if(bs == null)
 		{
@@ -224,8 +229,4 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		
 	}
 	
-	public static void main(String args[])
-	{
-		new Game();
-	}
 }
