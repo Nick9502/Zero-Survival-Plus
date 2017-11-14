@@ -1,8 +1,9 @@
 package com.dev.main;
 
 /*
- * Game Tester Class to Start 
- * Zero Survival Plus
+ * Game Tester Class to Start game
+ * and thread
+ * Welcome to Zero Survival Plus
  */
 public class GameTester {
 	

@@ -76,7 +76,6 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		// Create Window and Display Menu Particles
 		new Window(WIDTH, HEIGHT, "Zero Survival+",this);
 		createParticle();
-
 	}
 	//Stops objects from exceeding boundaries. "Clamps" them down.
 	public static float clamp(float var,float min, float max)

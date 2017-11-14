@@ -5,48 +5,112 @@ import java.awt.event.KeyEvent;
 
 import com.dev.main.Game.STATE;
 
-public class KeyInput extends KeyAdapter{ //Extends to allow access to methods.
+/*
+ * KeyInput Class inherits from KeyAdapter
+ * 
+ */
+public class KeyInput extends KeyAdapter{ 
 
+	// Handler necessary to loop through and update objects after key input.
 	private Handler handler;
-	
 	Game game;
 	
-	public KeyInput(Handler handler, Game game){ //Handler necessary to loop through and update objects after key input.
+	// Initialize neccessary objects
+	public KeyInput(Handler handler, Game game)
+	{ 
 		this.handler=handler;
 		this.game=game;
 	}
-	public void keyPressed(KeyEvent e){ //Moving player after key is pressed.
+	/*
+	 * keyPressed - when a key on the keyboard is pressed.
+	 */
+	public void keyPressed(KeyEvent e){ 
 		int key = e.getKeyCode();
-		for(int i=0;i<handler.object.size();i++){ // Loop to manage input.
-			GameObject tempObject = handler.object.get(i); //Temporary object to store current active object.
+		
+		// Check which object to manipulate
+		for(int i=0;i<handler.object.size();i++)
+		{ 
+			// Temporary object to store current active object.
+			GameObject tempObject = handler.object.get(i); 
 			
-			if (tempObject.getID()==ID.Player){//Key Inputs for Player 1.
-				if(key == KeyEvent.VK_W && tempObject.canJump==true){tempObject.setvelY(-handler.spd);tempObject.jumping=true;tempObject.canJump=false;}
-				if(key == KeyEvent.VK_A ){tempObject.setvelX(-handler.spd);tempObject.movingLeft=true;tempObject.movingRight=false;}
-				if(key == KeyEvent.VK_D ){tempObject.setvelX(handler.spd);tempObject.movingRight=true;tempObject.movingLeft=false;}
+			// Checks for Player Object and Moves Player
+			if (tempObject.getID()==ID.Player)
+			{
+				// Player Jumping
+				if(key == KeyEvent.VK_W && tempObject.canJump==true)
+				{
+					tempObject.setvelY(-handler.spd);tempObject.jumping=true;tempObject.canJump=false;
+				}
+				// Move Left
+				if(key == KeyEvent.VK_A )
+				{
+					tempObject.setvelX(-handler.spd);tempObject.movingLeft=true;tempObject.movingRight=false;
+				}
+				// Move Right
+				if(key == KeyEvent.VK_D )
+				{
+					tempObject.setvelX(handler.spd);tempObject.movingRight=true;tempObject.movingLeft=false;
+				}
 			}
 		}
-		if (key == KeyEvent.VK_P) //Pause Button when P key is pressed
+		// Pause Button when P key is pressed
+		if (key == KeyEvent.VK_P) 
 		{ 
-			if (game.gameState == STATE.Game){
-				if (Game.paused){Game.paused = false;}
+			if (game.gameState == STATE.Game)
+			{
+				// If Game paused already unpause
+				if (Game.paused)
+				{
+					Game.paused = false;
+				}
+				// Else Pause Game
 				else Game.paused=true;
-		}}
-		if (key== KeyEvent.VK_ESCAPE){System.exit(1);} //Hit escape to exit the game.
-		if (key== KeyEvent.VK_SPACE){//Hit Space to access Shop.
+			}
+		
+		}
+		//Hit escape to exit the game.
+		if (key== KeyEvent.VK_ESCAPE)
+		{
+			System.exit(1);
+		} 
+		
+		// Hit Space to access Shop.
+		if (key== KeyEvent.VK_SPACE)
+		{
+			// If not in Shop go shop
 			if (game.gameState==STATE.Game)game.gameState=STATE.Shop;
+			// Else exit shop and resume game
 			else if (game.gameState==STATE.Shop)game.gameState=STATE.Game;
 		} 
 	}
-	public void keyReleased(KeyEvent e){ // Stopping Player after Key is released
+	/*
+	 * Events for when keyboard key is released
+	 */
+	public void keyReleased(KeyEvent e){ 
 		int key = e.getKeyCode();
-		for(int i=0;i<handler.object.size();i++){ // Loop to manage input.
+		
+		for(int i=0;i<handler.object.size();i++)
+		{ 
 			GameObject tempObject = handler.object.get(i); //Temporary object to store id.
 			
-			if (tempObject.getID()==ID.Player){//Key Inputs for Player 1.
-				if(key == KeyEvent.VK_W){tempObject.setvelY(0);tempObject.falling=true;}
-				if(key == KeyEvent.VK_A && tempObject.movingLeft==true){tempObject.setvelX(0);tempObject.movingLeft=false;}
-				if(key == KeyEvent.VK_D && tempObject.movingRight==true){tempObject.setvelX(0);tempObject.movingRight=false;}
+			// Checks for Player Object and Stops
+			if (tempObject.getID()==ID.Player)
+			{
+				// Player Falls after Jumping(Gravity)
+				if(key == KeyEvent.VK_W)
+				{
+					tempObject.setvelY(0);tempObject.falling=true;
+				}
+				// Player Stop Moving Left
+				if(key == KeyEvent.VK_A && tempObject.movingLeft==true)
+				{
+					tempObject.setvelX(0);tempObject.movingLeft=false;
+				}
+				// Player Stops Moving Right.
+				if(key == KeyEvent.VK_D && tempObject.movingRight==true)
+				{
+					tempObject.setvelX(0);tempObject.movingRight=false;
+				}
 			}
 		}
 	}
