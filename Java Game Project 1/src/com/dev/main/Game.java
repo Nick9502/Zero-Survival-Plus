@@ -7,7 +7,12 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Game extends Canvas implements Runnable{ // Runnable allows game.start() thread to work.
+/*
+ * Game - Creates and Sets Up Game Environment
+ * Implements Runnable interface to run game on thread.
+ * TODO - Test if Seperate thread load resources improves performance
+ */
+public class Game extends Canvas implements Runnable{ 
 	
 	private static final long serialVersionUID = 2634874163305979749L;
 	
@@ -77,6 +82,7 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		new Window(WIDTH, HEIGHT, "Zero Survival+",this);
 		createParticle();
 	}
+	
 	//Stops objects from exceeding boundaries. "Clamps" them down.
 	public static float clamp(float var,float min, float max)
 	{ 
@@ -99,7 +105,11 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 			}
 		}
 	}
-	// Runs Game Thread
+	
+	/*
+	 * start - Creates and Starts game thread.
+	 * also sets off run method
+	 */
 	public synchronized void start()
 	{
 		thread = new Thread(this);// Initializes thread as new. "this" refers to our game instance.
@@ -107,7 +117,9 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 		running = true;
 	}
 	
-	// Try and Catch to test if program stopped.
+	/*
+	 * stop - Try and Catch to see if program stopped.
+	 */
 	public synchronized void stop(){ 
 		try{ 
 			thread.join(); // Stops thread.
@@ -119,12 +131,13 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
 	}
 	
 	/*
-    Very Popular Game Loop. Refreshes and Updates Game.
-    Part of Runnable Interface
-	We need a loop that performs 2 things: it checks whether enough time has passed (1/60 sec) 
-	to refresh the game, and checks whether enough time has passed (1 sec) to refresh the FPS counter;
-	while 'running' it adds the time it took to go through one iteration of the loop it self and 
-	adds it to delta (which is simplified to 1) so once it reaches 1 delta it means enough time has passed to go forward one tick
+ 	 * run - Very Popular Game Loop. Refreshes and Updates Game.
+     * Part of Runnable Interface. run method starts when thread is created
+	 * We need a loop that performs 2 things: it checks whether enough time has passed (1/60 sec) 
+	 * to refresh the game, and checks whether enough time has passed (1 sec) to refresh the FPS counter;
+	 * while 'running' it adds the time it took to go through one iteration of the loop it self and 
+	 * adds it to delta (which is simplified to 1) so once it reaches 1 delta it means enough 
+	 * time has passed to go forward one tick
 	 */
 	public void run() {
 		this.requestFocus();//Dont have to click on screen for keyboard input to work.
@@ -154,7 +167,9 @@ public class Game extends Canvas implements Runnable{ // Runnable allows game.st
         }
         stop();
     }
+	
 	/* 
+	 * tick - Checks Game State
 	 * Checks which state game is currently in and displays 
 	 * appropriate output
 	 */
