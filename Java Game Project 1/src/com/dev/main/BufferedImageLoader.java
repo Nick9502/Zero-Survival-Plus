@@ -5,13 +5,24 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class BufferedImageLoader { // Class to Load Images(Sprite sheet)
+/*
+ * Class to Load Buffered Images
+ * Using BufferedImage and ImageIO
+ * Use in Game Class to Load Spritsheet
+ * or other images into game.
+ */
+public class BufferedImageLoader { 
 
-	BufferedImage image; //Create BufferedImage object instance
+	//Create BufferedImage object instance
+	BufferedImage image; 
 	
+	/*
+	 * Try and Catch to get Buffered Image from path.
+	 */
 	public BufferedImage loadImage(String path){
 		try {
-			image=ImageIO.read(getClass().getResource(path)); //Load Image by entering path
+			//Load Resource from inputted path. getResource method of Class
+			image=ImageIO.read(getClass().getResource(path)); 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

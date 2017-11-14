@@ -6,10 +6,10 @@ import java.awt.image.BufferedImage;
  * SpriteSheet class makes use of 
  * Java BufferedImage(lots of features) class to 
  * load and access spritesheet
- *  
  */
 public class SpriteSheet {
 
+	// Singular Sprite Object
 	private BufferedImage sprite;
 	
 	public SpriteSheet(BufferedImage ss){
