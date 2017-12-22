@@ -85,8 +85,8 @@ public class Player extends GameObject {
 	 */
 	private void collison() 
 	{ 
-		for (int i = 0; i < handler.object.size(); i++) { // Checks for which object is colliding
-			GameObject tempObject = handler.object.get(i);
+		for (int i = 0; i < handler.objects.size(); i++) { // Checks for which object is colliding
+			GameObject tempObject = handler.objects.get(i);
 			
 			// If the object is the Block
 			if (tempObject.getID() == ID.Block) 

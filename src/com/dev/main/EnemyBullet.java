@@ -30,8 +30,8 @@ public class EnemyBullet extends GameObject {
 		handler.AddObject(new Trail((int)x,(int)y,ID.Trail,Color.red,16,16,0.1f,handler));
 	}
 	private void collision(){ //Detects for collision with specific object. Handler needed.
-		for (int i=0;i<handler.object.size();i++){ //Checks for which object is colliding.
-			GameObject tempObject=handler.object.get(i);
+		for (int i=0;i<handler.objects.size();i++){ //Checks for which object is colliding.
+			GameObject tempObject=handler.objects.get(i);
 			if (tempObject.getID()==ID.Block){//If the object is the Block
 				if(getBounds().intersects(tempObject.getBounds())){ //If the objects intersect.
 					handler.RemoveObject(this);

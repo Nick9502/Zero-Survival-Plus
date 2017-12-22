@@ -14,8 +14,8 @@ public class SmartEnemy extends GameObject {
 		this.handler=handler;
 		
 		//Runs through Handler(All objects) If player is found set object to player.
-		for (int i =0;i<handler.object.size();i++){
-			if (handler.object.get(i).getID()==ID.Player){player=handler.object.get(i);}
+		for (int i =0;i<handler.objects.size();i++){
+			if (handler.objects.get(i).getID()==ID.Player){player=handler.objects.get(i);}
 		}
 	}
 	

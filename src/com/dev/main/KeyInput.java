@@ -15,7 +15,7 @@ public class KeyInput extends KeyAdapter{
 	private Handler handler;
 	Game game;
 	
-	// Initialize neccessary objects
+	// Initialize necessary objects
 	public KeyInput(Handler handler, Game game)
 	{ 
 		this.handler=handler;
@@ -27,11 +27,11 @@ public class KeyInput extends KeyAdapter{
 	public void keyPressed(KeyEvent e){ 
 		int key = e.getKeyCode();
 		
-		// Check which object to manipulate
-		for(int i=0;i<handler.object.size();i++)
+		// Check which object to register inputs for
+		for(int i=0;i<handler.objects.size();i++)
 		{ 
 			// Temporary object to store current active object.
-			GameObject tempObject = handler.object.get(i); 
+			GameObject tempObject = handler.objects.get(i); 
 			
 			// Checks for Player Object and Moves Player
 			if (tempObject.getID()==ID.Player)
@@ -89,9 +89,9 @@ public class KeyInput extends KeyAdapter{
 	public void keyReleased(KeyEvent e){ 
 		int key = e.getKeyCode();
 		
-		for(int i=0;i<handler.object.size();i++)
+		for(int i=0;i<handler.objects.size();i++)
 		{ 
-			GameObject tempObject = handler.object.get(i); //Temporary object to store id.
+			GameObject tempObject = handler.objects.get(i); //Temporary object to store id.
 			
 			// Checks for Player Object and Stops
 			if (tempObject.getID()==ID.Player)

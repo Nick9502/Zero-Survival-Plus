@@ -50,7 +50,7 @@ public class Game extends Canvas implements Runnable{
 	// Call from this one same sprite sheet. Hence static.
 	public static BufferedImage sprite_sheet; 
 	
-	/*
+   /**
 	 * IMPORTANT
 	 * Game constructor initializes all necessary game objects
 	 * imports setups and effects
@@ -140,7 +140,7 @@ public class Game extends Canvas implements Runnable{
 	 * time has passed to go forward one tick
 	 */
 	public void run() {
-		this.requestFocus();//Dont have to click on screen for keyboard input to work.
+		this.requestFocus();// Don't have to click on screen for keyboard input to work.
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;

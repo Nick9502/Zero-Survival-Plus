@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 //Abstract class for every game Object.
 public abstract class GameObject {
 	
-	//Instance variables Protected is inherited by subclass.
+	//Instance variables with protected are inherited by subclass.
 	protected float x,y;
 	protected ID id;
 	protected float velX, velY;
