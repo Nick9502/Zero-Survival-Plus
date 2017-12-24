@@ -32,7 +32,7 @@ public abstract class GameObject {
 	
    /* Abstract methods must be implemented by child
 	* So objects will refresh and be rendered on the screen.
-	* Creates rectangle bounds. Not good with objects that arent rectangles.
+	* Creates rectangle bounds. Not good with objects that are not rectangles.
 	*/
 	public abstract void tick();
 	public abstract void render(Graphics g);
