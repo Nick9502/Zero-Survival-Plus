@@ -1,4 +1,4 @@
-package com.dev.main;
+package game;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class AudioPlayer
 		try {
 			soundMap.put("Click Sound", new Sound("res/click_sound.wav"));
 			
-			musicMap.put("Music", new Music("res/ParagonX9_ChaozFantasy.wav"));
+			musicMap.put("Music", new Music("res/music_bg.wav"));
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

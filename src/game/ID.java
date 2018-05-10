@@ -1,4 +1,4 @@
-package com.dev.main;
+package game;
 
 /*
  * Every GameObject has an ID corresponding

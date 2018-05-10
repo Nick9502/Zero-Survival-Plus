@@ -1,4 +1,4 @@
-package com.dev.main;
+package game;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import com.dev.main.Game.STATE;
+import game.Game.STATE;
 
 /*
  *  Upgrade Shop / Pause Menu

@@ -1,4 +1,4 @@
-package com.dev.main;
+package game;
 
 /*
  * Game Tester Class to Start game

@@ -1,4 +1,4 @@
-package com.dev.main;
+package game;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics;

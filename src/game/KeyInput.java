@@ -1,9 +1,9 @@
-package com.dev.main;
+package game;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import com.dev.main.Game.STATE;
+import game.Game.STATE;
 
 /*
  * KeyInput Class inherits from KeyAdapter

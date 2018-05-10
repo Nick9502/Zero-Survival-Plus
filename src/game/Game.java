@@ -1,4 +1,4 @@
-package com.dev.main;
+package game;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -59,7 +59,7 @@ public class Game extends Canvas implements Runnable{
 	{
 		// Load Sprite Sheet
 		BufferedImageLoader loader = new BufferedImageLoader(); // Creates instance of loader object in Game class.
-		sprite_sheet= loader.loadImage("/Sprite_Sheet.png"); // Load Sprite sheet into game
+		sprite_sheet= loader.loadImage("res/sprite_sheet.png"); // Load Sprite sheet into game
 		System.out.println("Loaded Sprite Sheet");
 
 		// Initialize all needed game objects.

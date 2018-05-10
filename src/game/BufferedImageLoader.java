@@ -1,9 +1,12 @@
-package com.dev.main;
+package game;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageInputStream;
 
 /*
  * Class to Load Buffered Images
@@ -22,7 +25,8 @@ public class BufferedImageLoader {
 	public BufferedImage loadImage(String path){
 		try {
 			//Load Resource from inputted path. getResource method of Class
-			image=ImageIO.read(getClass().getResource(path)); 
+			//image = ImageIO.read(new FileImageInputStream(new File(path)));
+			image = ImageIO.read(new FileInputStream(new File(path)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
